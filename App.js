@@ -40,8 +40,9 @@ function App() {
     const fetchCloudData = async () => {
       if (user) {
         try {
-          const response = await fetch(`https://eduprep-ms15.onrender.com/api/user-stats/${user.id}`);
-          if (response.ok) {
+          // Change from hardcoded URL to:
+          const API_URL = import.meta.env.VITE_API_URL || 'https://eduprep-ms15.onrender.com';
+          const response = await fetch(`${API_URL}/api/user-stats/${user.id}`); if (response.ok) {
             const data = await response.json();
 
             // --- STREAK LOGIC STARTS HERE ---
@@ -92,7 +93,9 @@ function App() {
     if (!notes.trim()) return;
     setLoading(true);
     try {
-      const response = await fetch('https://eduprep-ms15.onrender.com', {
+      // To this (This tells React to use the Vercel setting if it exists):
+      const API_URL = import.meta.env.VITE_API_URL || 'https://eduprep-ms15.onrender.com';
+      const response = await fetch(`${API_URL}/api/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ notes, stream, subject, topic, difficulty, count: qCount }),
@@ -188,8 +191,11 @@ function App() {
     if (user) {
       try {
         console.log("Sending score to database for user:", user.id);
-        const response = await fetch('https://eduprep-ms15.onrender.com/api/save-score', {
+        // Change from hardcoded URL to:
+        const API_URL = import.meta.env.VITE_API_URL || 'https://eduprep-ms15.onrender.com';
+        const response = await fetch(`${API_URL}/api/save-score`, {
           method: 'POST',
+          // ... rest of your headers and body          method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             clerkUserId: user.id,
