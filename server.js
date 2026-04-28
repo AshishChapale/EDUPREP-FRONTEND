@@ -92,7 +92,7 @@ app.post('/api/generate', async (req, res) => {
     }
 
     console.log(`Generating ${count} advanced questions for ${subject}...`);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `Act as an expert engineering professor. Based on the provided notes, generate EXACTLY ${count || 10} multiple-choice questions. 
 
